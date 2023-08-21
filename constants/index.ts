@@ -1,2 +1,2 @@
-export const appName = 'Vitesse for Nuxt 3'
-export const appDescription = 'Vitesse for Nuxt 3'
+export const appName = 'Nuxt Supabase File Upload'
+export const appDescription = 'Nuxt Supabase File Upload Using FilePond'

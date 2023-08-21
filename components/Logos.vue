@@ -2,7 +2,7 @@
   <div inline-flex cursor-default text-2xl font-300>
     <div flex flex-col children:mx-auto>
       <img inline-block h-18 w-18 src="/nuxt.svg">
-      <span mt--2 text-green5>Nuxt 3</span>
+      <span mt-2 text-green5>Nuxt 3</span>
     </div>
     <div
       text="3xl gray4"
@@ -10,8 +10,8 @@
       i-carbon-add transform transition-all-500 hover:rotate-135
     />
     <div flex flex-col children:mx-auto>
-      <img inline-block h-18 w-18 src="/vite.png">
-      <span mt--2 text-purple5>Vitesse</span>
+      <img inline-block h-18 w-fit src="https://pqina.nl/filepond/static/assets/filepond-logo.svg">
+      <span mt-2 text-blue-300>FilePond</span>
     </div>
   </div>
 </template>
