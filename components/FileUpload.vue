@@ -4,17 +4,20 @@ import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 
+import FilePondPluginImageCrop from 'filepond-plugin-image-crop' // Import image crop plugin
+
 import axios from 'axios'
 
 export default {
   components: {
-    FilePond: vueFilePond(FilePondPluginImagePreview), // Passing plugins directly
+    FilePond: vueFilePond(FilePondPluginImagePreview, FilePondPluginImageCrop), // Passing plugins directly
   },
   data() {
     return {
       filePondOptions: {
         // FilePond options and settings
         allowMultiple: true,
+        acceptedFileTypes: ['image/*'],
         server: {
           process: (fieldName, file, metadata, load, error, progress) => {
             const formData = new FormData()
@@ -51,8 +54,8 @@ export default {
       Upload any image here
     </h2>
     <FilePond v-bind="filePondOptions" ref="FilePond" />
-    <h2 class="font-semibold color-red">
-      Files will get uploaded on a MOCK SERVER and will be deleted after 24 hours
+    <h2 class="font-semibold">
+      Files will be uploaded on a <span class="color-red"> MOCK SERVER </span> and will be deleted after 24 hours
     </h2>
   </div>
 </template>
