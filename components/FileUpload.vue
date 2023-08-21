@@ -4,11 +4,11 @@ import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
 
-import axios from 'axios' // Import Axios library
+import axios from 'axios'
 
 export default {
   components: {
-    FilePond: vueFilePond(FilePondPluginImagePreview), // Pass plugins directly
+    FilePond: vueFilePond(FilePondPluginImagePreview), // Passing plugins directly
   },
   data() {
     return {
@@ -17,27 +17,25 @@ export default {
         allowMultiple: true,
         server: {
           process: (fieldName, file, metadata, load, error, progress) => {
-            // Use Axios to upload the file to the server
             const formData = new FormData()
-            formData.append(fieldName, file, file.name)
+            formData.append('file', file, file.name) // Use 'file' as the field name
 
             axios
-              .post('https://example.com/upload', formData, {
+              .post('http://localhost:3001/upload', formData, {
                 onUploadProgress: (progressEvent) => {
                   const uploadPercentage = Math.round(
-                    (progressEvent.loaded / progressEvent.total) * 100,
-                  )
-                  progress(uploadPercentage) // Report progress to FilePond
+                    (progressEvent.loaded / progressEvent.total) * 100)
+                  progress(uploadPercentage)
                 },
               })
               .then((response) => {
-                // Simulate a successful upload after 2 seconds
-                setTimeout(() => {
-                  load(response.data.filePath) // Pass the server-generated file path
-                }, 2000)
+                // Handle the response from the server after successful upload
+                // For example:
+                const filePath = response.data.filePath
+                load(filePath)
               })
               .catch((err) => {
-                error('Error uploading file', err) // Report error to FilePond
+                error('Error uploading file', err)
               })
           },
         },
@@ -54,7 +52,7 @@ export default {
     </h2>
     <FilePond v-bind="filePondOptions" ref="FilePond" />
     <h2 class="font-semibold color-red">
-      IMP: Files will not get uploaded as '.post' URL has not been provided
+      Files will get uploaded on a MOCK SERVER and will be deleted after 24 hours
     </h2>
   </div>
 </template>
