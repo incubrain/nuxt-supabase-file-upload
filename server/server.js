@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
   destination: 'uploads/',
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`
-    cb(null, `${uniqueSuffix}-${id}-${file.originalname}`)
+    cb(null, `${uniqueSuffix}-${file.originalname}`)
   },
 })
 
@@ -34,5 +34,5 @@ app.post('/upload', upload.single('file'), (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Mock server listening at http://localhost:${port}`)
+  console.log(`server listening at http://localhost:${port}`)
 })
