@@ -17,9 +17,7 @@ export default defineNuxtConfig({
     typedPages: true,
   },
 
-  build: {
-    transpile: ['vue-filepond'],
-  },
+  ssr: false,
 
   colorMode: {
     classSuffix: '',
