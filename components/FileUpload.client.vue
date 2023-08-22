@@ -41,7 +41,7 @@ const filePondOptions = ref({
     <h2 class="my-4 text-lg font-semibold">
       Upload any image here
     </h2>
-    <FilePond v-bind="filePondOptions" ref="FilePond" />
+    <FilePond v-bind="filePondOptions" />
     <h2 class="font-semibold">
       Files will be uploaded on a <span class="text-red-500"> MOCK SERVER </span> and will be deleted after 24 hours
     </h2>

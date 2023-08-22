@@ -17,8 +17,6 @@ export default defineNuxtConfig({
     typedPages: true,
   },
 
-  ssr: false,
-
   colorMode: {
     classSuffix: '',
   },
