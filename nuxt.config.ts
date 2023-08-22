@@ -4,10 +4,10 @@ import { appDescription } from './constants/index'
 export default defineNuxtConfig({
   modules: [
     '@vueuse/nuxt',
-    '@unocss/nuxt',
     '@pinia/nuxt',
-    '@nuxtjs/color-mode',
+    '@nuxthq/ui',
     '@vite-pwa/nuxt',
+    '@nuxt/image',
   ],
 
   experimental: {
@@ -18,10 +18,6 @@ export default defineNuxtConfig({
     renderJsonPayloads: true,
     typedPages: true,
   },
-
-  css: [
-    '@unocss/reset/tailwind.css',
-  ],
 
   colorMode: {
     classSuffix: '',
@@ -38,6 +34,11 @@ export default defineNuxtConfig({
       routes: ['/'],
       ignore: ['/hi'],
     },
+  },
+
+  ui: {
+    global: true,
+    icons: ['mdi', 'carbon'],
   },
 
   app: {

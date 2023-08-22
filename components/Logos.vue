@@ -1,17 +1,14 @@
 <template>
-  <div inline-flex cursor-default text-2xl font-300>
-    <div flex flex-col children:mx-auto>
-      <img inline-block h-18 w-18 src="/nuxt.svg">
-      <span mt-2 text-green5>Nuxt 3</span>
+  <div class="inline-flex cursor-default text-2xl font-light">
+    <div class="flex flex-col space-y-2">
+      <NuxtImg width="80px" src="/nuxt.svg" />
     </div>
-    <div
-      text="3xl gray4"
-      m="x-4 y-auto"
-      i-carbon-add transform transition-all-500 hover:rotate-135
+    <UIcon
+      class="text-3xl text-gray-400 mx-4 my-auto transform transition-all duration-500 hover:rotate-45"
+      name="i-heroicons-plus-solid"
     />
-    <div flex flex-col children:mx-auto>
-      <img inline-block h-18 w-fit src="https://pqina.nl/filepond/static/assets/filepond-logo.svg">
-      <span mt-2 text-blue-300>FilePond</span>
+    <div class="flex flex-col items-center justify-center space-y-2">
+      <NuxtImg class="inline-block h-18 w-auto" src="https://pqina.nl/filepond/static/assets/filepond-logo.svg" />
     </div>
   </div>
 </template>

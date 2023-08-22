@@ -3,15 +3,15 @@ const router = useRouter()
 </script>
 
 <template>
-  <main p="x4 y10" text="center teal-700 dark:gray-200">
-    <div text-4xl>
-      <div i-carbon-warning inline-block />
+  <main class="text-center text-teal-700 dark:text-gray-200 px-4 py-10">
+    <div class="text-4xl">
+      <UIcon name="i-carbon-warning" class="inline-block" />
     </div>
     <div>Not found</div>
     <div>
-      <button text-sm btn m="3 t8" @click="router.back()">
+      <UButton @click="router.back()">
         Back
-      </button>
+      </UButton>
     </div>
   </main>
 </template>

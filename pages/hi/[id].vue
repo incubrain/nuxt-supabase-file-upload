@@ -14,8 +14,12 @@ definePageMeta({
 
 <template>
   <div>
-    <div i-twemoji:waving-hand inline-block animate-shake-x animate-duration-5000 text-4xl />
-    <h3 text-2xl font-500>
+    <UIcon
+      name="i-heroicons-hand-raised"
+      class="inline-block animate-shake-x animate-duration-5000 text-4xl"
+    />
+
+    <h3 class="text-2xl font-medium">
       Hi, {{ name }}!
     </h3>
 

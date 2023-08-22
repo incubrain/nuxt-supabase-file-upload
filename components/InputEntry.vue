@@ -22,13 +22,12 @@ function go() {
       @keydown.enter="go"
     >
     <div>
-      <button
-        m-3 text-sm btn
+      <UButton
         :disabled="!name"
         @click="go"
       >
         GO
-      </button>
+      </UButton>
     </div>
   </div>
 </template>
