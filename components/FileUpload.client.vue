@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
