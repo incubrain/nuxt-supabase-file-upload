@@ -42,7 +42,7 @@ const filePondOptions = {
     <h2 class="my-4 text-lg font-semibold">
       Upload any image here
     </h2>
-    <FilePond v-bind="filePondOptions" ref="FilePond" />
+    <FilePond v-bind="filePondOptions" />
     <h2 class="font-semibold">
       Files will be uploaded on a <span class="text-red-500"> MAIN SERVER </span>
     </h2>
