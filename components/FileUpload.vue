@@ -3,10 +3,9 @@ import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import FilePondPluginImageCrop from 'filepond-plugin-image-crop'
 import axios from 'axios'
 
-const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginImageCrop)
+const FilePond = vueFilePond(FilePondPluginImagePreview)
 
 const filePondOptions = {
   allowMultiple: false,
@@ -15,7 +14,7 @@ const filePondOptions = {
     process: async (file, load, error, progress) => {
       try {
         const formData = new FormData()
-        formData.append('file', file, file.name)
+        formData.append('file', file)
 
         const response = await axios.post('/api/upload', formData, {
           onUploadProgress: (progressEvent) => {
@@ -49,7 +48,3 @@ const filePondOptions = {
     </h2>
   </div>
 </template>
-
-<style scoped>
-/* Add your component styles here */
-</style>
