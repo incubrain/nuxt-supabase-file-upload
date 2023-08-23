@@ -1,15 +1,16 @@
 const path = require('node:path')
+const { createServer } = require('@vercel/node')
 const express = require('express')
 const multer = require('multer')
 const cors = require('cors')
 
 const app = express()
-const port = 3001
+const server = createServer((req, res) => app(req, res))
 
 app.use(cors())
 
 const storage = multer.diskStorage({
-  destination: 'uploads/',
+  destination: './uploads/',
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`
     cb(null, `${uniqueSuffix}-${file.originalname}`)
@@ -18,14 +19,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage })
 
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', upload.single('file'), (req, res) => {
   try {
     if (!req.file)
       throw new Error('No file uploaded')
 
     const filePath = path.join(__dirname, 'uploads', req.file.filename)
-    res.json({ filePath })
-    res.status(200).json({ message: 'File uploaded' })
+    res.status(200).json({ filePath })
   }
   catch (err) {
     console.error(err)
@@ -33,6 +33,4 @@ app.post('/upload', upload.single('file'), (req, res) => {
   }
 })
 
-app.listen(port, () => {
-  console.log(`server listening at http://localhost:${port}`)
-})
+module.exports = server

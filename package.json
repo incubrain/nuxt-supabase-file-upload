@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
+    "@vercel/node": "^3.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "filepond": "^4.30.4",

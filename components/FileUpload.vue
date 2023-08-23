@@ -8,32 +8,34 @@ import axios from 'axios'
 
 const FilePond = vueFilePond(FilePondPluginImagePreview, FilePondPluginImageCrop)
 
-const filePondOptions = ref({
-  allowMultiple: true,
+const filePondOptions = {
+  allowMultiple: false,
   acceptedFileTypes: ['image/*'],
   server: {
-    process: (fieldName, file, metadata, load, error, progress) => {
-      const formData = new FormData()
-      formData.append('file', file, file.name)
+    process: async (file, load, error, progress) => {
+      try {
+        const formData = new FormData()
+        formData.append('file', file, file.name)
 
-      axios
-        .post('http://localhost:3001/upload', formData, {
+        const response = await axios.post('/api/upload', formData, {
           onUploadProgress: (progressEvent) => {
             const uploadPercentage = Math.round(
-              (progressEvent.loaded / progressEvent.total) * 100)
+              (progressEvent.loaded / progressEvent.total) * 100,
+            )
             progress(uploadPercentage)
           },
         })
-        .then((response) => {
-          const filePath = response.data.filePath
-          load(filePath)
-        })
-        .catch((err) => {
-          error('Error uploading file', err)
-        })
+
+        const filePath = response.data.filePath
+        load(filePath)
+      }
+      catch (err) {
+        console.error(err)
+        error('Error uploading file', err)
+      }
     },
   },
-})
+}
 </script>
 
 <template>
@@ -47,3 +49,7 @@ const filePondOptions = ref({
     </h2>
   </div>
 </template>
+
+<style scoped>
+/* Add your component styles here */
+</style>
