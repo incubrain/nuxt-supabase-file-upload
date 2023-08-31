@@ -1,17 +1,41 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@supabase/supabase-js'
+import { getCookie } from 'h3'
 import type { H3Event } from 'h3'
 
-export default async function serverSupabaseClient<T>(event: H3Event) {
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJuZG12cG95cm11eG11enFsZ2Z1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTM0NTcwODgsImV4cCI6MjAwOTAzMzA4OH0.Y6cxKHd_SX3BjkFcYb4SBa9z6fAswIemm9kP-8aV51E'
-  const SUPABASE_URL = 'https://bndmvpoyrmuxmuzqlgfu.supabase.co'
+export default async function serverSupabaseClient<T>(event: H3Event): Promise<SupabaseClient<T>> {
+  // get settings from runtime config
+  const env = useRuntimeConfig().public
 
   let supabaseClient = event.context._supabaseClient as SupabaseClient<T>
 
+  // No need to recreate client if exists in request context
   if (!supabaseClient) {
-    supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY)
+    supabaseClient = createClient(env.SUPABASE_URL, env.SUPABASE_KEY, {
+      auth: {
+        detectSessionInUrl: false,
+        persistSession: false,
+        autoRefreshToken: false,
+      },
+    })
     event.context._supabaseClient = supabaseClient
   }
 
+  // check for authorized session
+  const { data } = await supabaseClient.auth.getSession()
+  if (data?.session?.user?.aud !== 'authenticated') {
+    // create a session from cookies
+    const accessToken = getCookie(event, 'sb-access-token')
+    const refreshToken = getCookie(event, 'sb-refresh-token')
+
+    if (!accessToken || !refreshToken)
+      return supabaseClient
+
+    // Set session from cookies
+    await supabaseClient.auth.setSession({
+      refresh_token: refreshToken,
+      access_token: accessToken,
+    })
+  }
   return supabaseClient
 }

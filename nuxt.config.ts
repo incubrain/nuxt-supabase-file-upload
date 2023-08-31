@@ -6,7 +6,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxthq/ui',
     '@nuxt/image',
-    '@nuxtjs/supabase',
   ],
 
   experimental: {
@@ -20,6 +19,15 @@ export default defineNuxtConfig({
 
   colorMode: {
     classSuffix: '',
+  },
+
+  runtimeConfig: {
+    public: {
+      SUPABASE_URL: process.env.SUPABASE_URL,
+      SUPABASE_KEY: process.env.SUPABASE_KEY,
+      BASE_URL: process.env.BASE_URL,
+    },
+    SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY,
   },
 
   nitro: {

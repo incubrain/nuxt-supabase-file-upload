@@ -3,7 +3,6 @@ import vueFilePond from 'vue-filepond'
 import 'filepond/dist/filepond.min.css'
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css'
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import axios from 'axios'
 
 const FilePond = vueFilePond(FilePondPluginImagePreview)
 
@@ -28,9 +27,15 @@ const filePondOptions = {
           },
         }
 
-        const response = await axios.post('/api/upload', formData, config)
+        const { data, error } = await useFetch('/api/upload', {
+          method: 'POST',
+          body: formData,
+        })
 
-        const filePath = response.data.filePath
+        if (error)
+          throw createError('Error uploading file')
+        console.log(data)
+
         load(filePath)
       }
       catch (err) {
@@ -38,6 +43,12 @@ const filePondOptions = {
       }
     },
   },
+}
+
+async function test() {
+  const { data, error } = await useFetch('/api/upload')
+
+  console.log(data, error)
 }
 </script>
 
@@ -47,6 +58,9 @@ const filePondOptions = {
       Upload any image here
     </h2>
     <FilePond v-bind="filePondOptions" />
+    <UButton @click="test">
+      test
+    </UButton>
     <h2 class="font-semibold">
       Files will be uploaded on a <span class="text-red-500"> MAIN SERVER </span>
     </h2>
