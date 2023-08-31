@@ -18,6 +18,7 @@
     "@nuxt/devtools": "^0.7.4",
     "@nuxt/image": "^1.0.0-rc.1",
     "@nuxthq/ui": "^2.7.0",
+    "@nuxtjs/supabase": "^1.0.2",
     "@pinia/nuxt": "^0.4.11",
     "@vueuse/nuxt": "^10.3.0",
     "consola": "^3.2.3",
@@ -29,6 +30,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.13.6",
+    "@supabase/supabase-js": "^2.33.1",
     "@vercel/node": "^3.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.2",
@@ -38,6 +40,7 @@
     "filepond-plugin-image-preview": "^4.6.11",
     "fs": "^0.0.1-security",
     "multer": "^1.4.5-lts.1",
-    "vue-filepond": "^7.0.3"
+    "vue-filepond": "^7.0.3",
+    "vue-use-web": "^1.0.1"
   }
 }

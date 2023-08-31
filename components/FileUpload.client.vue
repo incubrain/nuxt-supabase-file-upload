@@ -14,23 +14,27 @@ const filePondOptions = {
     process: async (file, load, error, progress) => {
       try {
         const formData = new FormData()
-        formData.append('file', file)
+        formData.append('file', file.file) // Use 'file.file' to get the actual Blob object
 
-        const response = await axios.post('/api/upload', formData, {
+        const config = {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
           onUploadProgress: (progressEvent) => {
             const uploadPercentage = Math.round(
               (progressEvent.loaded / progressEvent.total) * 100,
             )
             progress(uploadPercentage)
           },
-        })
+        }
+
+        const response = await axios.post('/api/upload', formData, config)
 
         const filePath = response.data.filePath
         load(filePath)
       }
       catch (err) {
-        console.error(err)
-        error('Error uploading file', err)
+        console.log(err)
       }
     },
   },
