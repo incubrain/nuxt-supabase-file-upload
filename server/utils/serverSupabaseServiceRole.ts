@@ -10,9 +10,8 @@ export default function serverSupabaseServiceRole <T>(event: H3Event): SupabaseC
   } = useRuntimeConfig()
 
   // Make sure service key is set
-  if (!SUPABASE_SERVICE_KEY) {
+  if (!SUPABASE_SERVICE_KEY)
     throw createError('Missing `SUPABASE_SERVICE_KEY` in `.env`')
-  }
 
   // No need to recreate client if exists in request context
   if (!event.context._supabaseServiceRole) {

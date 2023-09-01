@@ -48,7 +48,7 @@ const filePondOptions = {
 async function test() {
   const { data, error } = await useFetch('/api/upload')
 
-  console.log(data, error)
+  console.log(data)
 }
 </script>
 
